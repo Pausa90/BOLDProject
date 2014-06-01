@@ -2,9 +2,9 @@
 #@author Andrea Iuliano & Valerio Cestarelli
 
 input_path="data/"
-output="output/"
+output="multifasta/"
 
-if [ -d output ]; then
+if [ -d "$output" ]; then
 	rm -R "$output"
 fi
 
