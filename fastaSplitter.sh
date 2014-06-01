@@ -32,6 +32,7 @@ for file in "$input_path"*.fas; do
 		if [ "$res" -eq "1" ];then
 
 			id=$(echo $row | awk -v FS="|" '{print $1}')
+			id="${id:1}" #Elimino il > all'inizio del file
 			id_header=$row
 
 		else
