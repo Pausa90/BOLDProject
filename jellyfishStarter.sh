@@ -10,14 +10,24 @@ fi
 
 mkdir "$output"
 
-for file in "$input"*/*.fas; do
+for dir in "$input"*; do
 
-	name_file=$(echo "$file" | awk -v FS="/" '{print $NF}')
-	name_file="${name_file::(-4)}" #Con -4 si elimina ".fas"
-	gene_sequence_length=$(cat "$file" | grep '^[^>]' | awk -FS='\n' '{print $1}' | tr '\n' ' ' | wc -c)
+	dir_name=$(echo "$dir" | awk -v FS="/" '{print $NF}')
+	dir_output="$output$dir_name"
+	mkdir "$dir_output"
 
-	jellyfish count -m 4 -o tmp.bin -c 2 -s 10M -t 4 -C "$file"
-	jellyfish dump -c -o "$output""$name_file""[length=$gene_sequence_length]""[k=4]"".occ" tmp.bin
-	rm tmp.bin
+	for file in "$input/$dir_name"/*.fas; do
+
+		name_file=$(echo "$file" | awk -v FS="/" '{print $NF}')
+		name_file="${name_file::(-4)}" #Con -4 si elimina ".fas"
+		gene_sequence_length=$(cat "$file" | grep '^[^>]' | awk -FS='\n' '{print $1}' | tr '\n' ' ' | wc -c)
+
+		jellyfish count -m 4 -o tmp.bin -c 2 -s 10M -t 4 -C "$file"
+		jellyfish dump -c -o "$dir_output/""$name_file""[length=$gene_sequence_length]""[k=4]"".occ" tmp.bin
+		rm tmp.bin
+
+	done
+
+	echo "$dir terminato"
 
 done

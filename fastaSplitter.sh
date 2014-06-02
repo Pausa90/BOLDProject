@@ -45,4 +45,6 @@ for file in "$input_path"*.fas; do
 		let i++
 	done
 
+	echo "$file terminato"
+
 done
