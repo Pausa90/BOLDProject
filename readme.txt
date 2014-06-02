@@ -19,4 +19,4 @@ Realizzazione:
 2) fastaSplitter.sh
 3) jellyfishStarter.sh
 4) bold.jar da usare con MapReduce
-5) matrixAssembler.py (scrive un file csv) 
+5) matrixAssembler.sh avvia più volte matrixAssembler.py (che scrive un file csv) 

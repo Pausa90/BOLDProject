@@ -6,7 +6,9 @@ import csv
 
 #import reinput 
 
-input= "boldOut/part-r-00000"
+inputFile= sys.argv[1]
+csvName = sys.argv[2]
+
 matrix = {"head":["id"],"data":[]}
 genes = []
 
@@ -59,14 +61,14 @@ def setFullRow(id, partialRow):
 
 #Main
 
-lines = open(input,'r').readlines()
+lines = open(inputFile,'r').readlines()
 
 initGenes(lines)
 
 for line in lines:
 	createMatrixRow(line)
 
-writer = csv.writer(open("matrix.csv", 'w'))
+writer = csv.writer(open(csvName + ".csv", 'w'))
 writer.writerow(matrix['head'])
 
 for gene in matrix['data']:

@@ -15,6 +15,8 @@ for file in "$input_path"*.fas; do
 	input_path_length=$( echo $input_path | wc -c )
 	let input_path_length--
 	name_file="${file:$input_path_length:(-4)}" #Con -4 si elimina ".fas"
+	name_file="$(echo "$name_file" | awk -v FS="[" '{print $1}')"
+
 
 	out_path="$output$name_file/"
 
