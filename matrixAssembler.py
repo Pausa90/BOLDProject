@@ -16,11 +16,12 @@ def initGenes(lines):
 	global genes
 	for line in lines:
 		for i in range(1, len(line.split())):
-			if (i%2 == 1 and i>0):
+			if (i%2 == 0 and i>0):
 				gene = line.split()[i]
 				genes.append(gene)
 	genes = set(genes)
 	genes = sorted(genes)
+	genes.append("species")
 	matrix["head"].extend(genes)
 
 def createMatrixRow(line):
@@ -28,22 +29,21 @@ def createMatrixRow(line):
 
 	splitted = line.split()
 	id = splitted[0]
-	for i in range(1, len(splitted)-1):
+	species = splitted[1]
+	for i in range(2, len(splitted)-1):
 		token = splitted[i]
 		
-		if (i%2 == 1):
+		if (i%2 == 0):
 			window = token
 		else:
 			partialRow.append( (window, token) )
 
 	partialRow = sorted(partialRow)
-	setFullRow(id,partialRow)
-	#print partialRow
-	#matrix['data'].append( (id,partialRow) )
+	setFullRow(id, species, partialRow)
 
 
 
-def setFullRow(id, partialRow):
+def setFullRow(id, species, partialRow):
 	global genes
 	row = [id]
 	iterator1 = 0
@@ -56,6 +56,7 @@ def setFullRow(id, partialRow):
 		else:
 			row.append(0)
 			iterator2 += 1
+	row.append(species)
 	matrix['data'].append( (row) )
 
 
