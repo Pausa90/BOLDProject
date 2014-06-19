@@ -15,8 +15,8 @@ genes = []
 def initGenes(lines):
 	global genes
 	for line in lines:
-		for i in range(1, len(line.split())):
-			if (i%2 == 0 and i>0):
+		for i in range(2, len(line.split())):
+			if (i%2 == 0):
 				gene = line.split()[i]
 				genes.append(gene)
 	genes = set(genes)
@@ -30,7 +30,7 @@ def createMatrixRow(line):
 	splitted = line.split()
 	id = splitted[0]
 	species = splitted[1]
-	for i in range(2, len(splitted)-1):
+	for i in range(2, len(splitted)):
 		token = splitted[i]
 		
 		if (i%2 == 0):
@@ -48,7 +48,7 @@ def setFullRow(id, species, partialRow):
 	row = [id]
 	iterator1 = 0
 	iterator2 = 0
-	while iterator1<len(partialRow) and iterator2<len(genes):
+	while iterator1<len(partialRow) and iterator2<len(genes)-1:
 		if partialRow[iterator1][0] == genes[iterator2]:
 			row.append(partialRow[iterator1][1])
 			iterator1 += 1
@@ -56,6 +56,11 @@ def setFullRow(id, species, partialRow):
 		else:
 			row.append(0)
 			iterator2 += 1
+	#Concludo con le finestre mancanti
+	while iterator2<len(genes)-1:
+		row.append(0)
+		iterator2 += 1
+
 	row.append(species)
 	matrix['data'].append( (row) )
 
